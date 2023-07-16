@@ -1,3 +1,15 @@
+# Base image with Python
+FROM python:3.8
+
+# Install necessary packages
+RUN apt-get update && apt-get install -y curl
+
+# Set work directory
+WORKDIR /app
+
+# Copy requirements file
+COPY requirements.txt .
+
 # Install project dependencies
 RUN pip install --upgrade pip --no-cache-dir -r requirements.txt
 
@@ -18,8 +30,8 @@ COPY . .
 RUN sonar-scanner \
     -Dsonar.projectKey=app \
     -Dsonar.sources=. \
-    -Dsonar.host.url=http://a38e7b04c86e6434cb6f682abf1ebb8b-589094959.ap-south-1.elb.amazonaws.com \  # url=sonarqube  
-    -Dsonar.login=ecce3e8709daeb0e1cdab7c10ce924cc5c33eb7b \     # login=sonarqube token
+    -Dsonar.host.url=http://a38e7b04c86e6434cb6f682abf1ebb8b-589094959.ap-south-1.elb.amazonaws.com \
+    -Dsonar.login=ecce3e8709daeb0e1cdab7c10ce924cc5c33eb7b \
     -Dsonar.language=py
 
 # Expose the FastAPI application port
