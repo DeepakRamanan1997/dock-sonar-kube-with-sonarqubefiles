@@ -11,7 +11,7 @@ app = FastAPI()
 def root():
     return {"message": "Fast API in Python"}
 
-@app.get("/health")
+@app.get("/healthz")
 def root():
     return {"message": "Probes are Working"}
 
